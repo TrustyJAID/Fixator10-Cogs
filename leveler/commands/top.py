@@ -175,9 +175,3 @@ class Top(MixinMeta, metaclass=CompositeMetaClass):
             pages = TopPager(users, board_type, is_level, user_stat, icon_url, title)
             menu = TopMenu(pages)
             await menu.start(ctx)
-            page = options.page
-            if page > pages.get_max_pages():
-                page = pages.get_max_pages()
-            if page < 1:
-                page = 1
-            await menu.show_page(page - 1)

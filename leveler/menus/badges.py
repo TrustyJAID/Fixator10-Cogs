@@ -1,9 +1,42 @@
 import discord
 from redbot.core.bank import get_currency_name
 from redbot.vendored.discord.ext import menus
+from .base import BaseView
+from redbot.core import commands
 
 
-class BadgeMenu(menus.MenuPages, inherit_buttons=False):
+class BuyBadgeButton(discord.ui.Button):
+    def __init__(
+        self,
+        label: str,
+        emoji: str,
+    ):
+        super().__init__(style=discord.ButtonStyle.grey, label=label, emoji=emoji)
+
+    async def callback(self, interaction: discord.Interaction):
+        await interaction.response.defer()
+        page = await self.view.source.get_page(self.view.current_page)
+        await self.view.ctx.invoke(
+            self.view.ctx.cog.buy_badge,
+            is_global=True if page["server_id"] == "global" else False,
+            name=page["badge_name"],
+        )
+
+
+class BadgeMenu(BaseView):
+    def __init__(self, source: menus.PageSource, timeout: int = 180, can_buy: bool = False):
+        super().__init__(source, timeout=timeout)
+        self.can_buy = can_buy
+        self.buy_button = BuyBadgeButton(label="Buy", emoji="\N{BANKNOTE WITH DOLLAR SIGN}")
+        self.add_item(self.buy_button)
+
+    async def start(self, ctx: commands.Context):
+        if self.can_buy:
+            self.can_buy = await ctx.cog.buy_badge.can_run(ctx, check_all_parents=True)
+        await super().start(ctx)
+
+
+class BadgeMenu_old(menus.MenuPages, inherit_buttons=False):
     def __init__(
         self,
         source: menus.PageSource,
@@ -107,6 +140,14 @@ class AvailableBadgePager(menus.ListPageSource):
         self.server_name = server_name
         self.icon = icon
         self.server_id = server_id
+        self.select_options = [
+            discord.SelectOption(
+                label=x.get("badge_name", "No Name Badge"),
+                description=f"Page {num+1}",
+                value=str(num),
+            )
+            for num, x in enumerate(entries)
+        ]
 
     async def format_page(self, menu: BadgeMenu, page):
         em = discord.Embed(
@@ -130,6 +171,14 @@ class OwnBadgePager(menus.ListPageSource):
     def __init__(self, entries, user: discord.Member):
         super().__init__(entries, per_page=1)
         self.user = user
+        self.select_options = [
+            discord.SelectOption(
+                label=x.get("badge_name", "No Name Badge"),
+                description=f"Page {num+1}",
+                value=str(num),
+            )
+            for num, x in enumerate(entries)
+        ]
 
     async def format_page(self, menu: BadgeMenu, page):
         em = discord.Embed(

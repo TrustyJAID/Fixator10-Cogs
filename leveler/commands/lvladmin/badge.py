@@ -72,7 +72,7 @@ class Badge(MixinMeta):
             await ctx.send("Name cannot contain `.`")
             return
 
-        if not await self._valid_image_url(bg_img):
+        if not await self._valid_image_url(bg_img, guild_id=serverid):
             await ctx.send("Background is not valid. Enter HEX color or image URL!")
             return
 
