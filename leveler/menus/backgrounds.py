@@ -1,16 +1,13 @@
-import discord
 from typing import Dict
 
+import discord
 from redbot.vendored.discord.ext import menus
+
 from .base import BaseView
 
 
 class ChangeSourceButton(discord.ui.Button):
-    def __init__(
-        self,
-        label: str,
-        source: menus.PageSource
-    ):
+    def __init__(self, label: str, source: menus.PageSource):
         super().__init__(style=discord.ButtonStyle.grey, label=label)
         self.source = source
 
@@ -20,11 +17,7 @@ class ChangeSourceButton(discord.ui.Button):
 
 
 class BackgroundMenu(BaseView):
-    def __init__(
-        self,
-        sources: Dict[str, menus.PageSource],
-        style: str
-    ):
+    def __init__(self, sources: Dict[str, menus.PageSource], style: str):
         self.sources = sources
         self.bg_type = style
         super().__init__(source=self.sources[style])

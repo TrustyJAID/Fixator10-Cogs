@@ -1,6 +1,6 @@
-import discord
 from asyncio import TimeoutError as AsyncTimeoutError
 
+import discord
 from redbot.core import commands
 from redbot.core.utils.predicates import MessagePredicate
 
