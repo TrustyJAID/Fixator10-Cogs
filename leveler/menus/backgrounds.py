@@ -1,7 +1,8 @@
-import discord
 from typing import Dict
 
+import discord
 from redbot.vendored.discord.ext import menus
+
 from .base import BaseView
 
 
