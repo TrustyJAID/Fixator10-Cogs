@@ -1,3 +1,5 @@
+from typing import Dict
+
 import discord
 from typing import Dict
 
@@ -25,6 +27,28 @@ class BackgroundMenu(BaseView):
         sources: Dict[str, menus.PageSource],
         style: str
     ):
+        self.sources = sources
+        self.bg_type = style
+        super().__init__(source=self.sources[style])
+        for key, value in self.sources.items():
+            nb = ChangeSourceButton(key, value)
+            self.add_item(nb)
+
+from .base import BaseView
+
+
+class ChangeSourceButton(discord.ui.Button):
+    def __init__(self, label: str, source: menus.PageSource):
+        super().__init__(style=discord.ButtonStyle.grey, label=label)
+        self.source = source
+
+    async def callback(self, interaction: discord.Interaction):
+        kwargs = await self.view.change_source(self.source)
+        await interaction.response.edit_message(**kwargs)
+
+
+class BackgroundMenu(BaseView):
+    def __init__(self, sources: Dict[str, menus.PageSource], style: str):
         self.sources = sources
         self.bg_type = style
         super().__init__(source=self.sources[style])

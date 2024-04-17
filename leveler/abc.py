@@ -124,15 +124,21 @@ class MixinMeta(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def _valid_image_url(self, url: str, *, guild_id: Optional[Union[Literal["global"], int]] = None):
+    async def _valid_image_url(
+        self, url: str, *, guild_id: Optional[Union[Literal["global"], int]] = None
+    ):
         raise NotImplementedError
 
     @abstractmethod
-    async def _download_image(self, url: str, *, guild_id: Optional[Union[Literal["global"], int]] = None):
+    async def _download_image(
+        self, url: str, *, guild_id: Optional[Union[Literal["global"], int]] = None
+    ):
         raise NotImplementedError
 
     @abstractmethod
-    async def _check_image_exists(self, image_name: str, *, guild_id: Optional[Union[Literal["global"], int]] = None):
+    async def _check_image_exists(
+        self, image_name: str, *, guild_id: Optional[Union[Literal["global"], int]] = None
+    ):
         raise NotImplementedError
 
     @abstractmethod

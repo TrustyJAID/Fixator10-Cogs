@@ -1,8 +1,11 @@
 import discord
+from redbot.core import commands
 from redbot.core.bank import get_currency_name
 from redbot.vendored.discord.ext import menus
 from .base import BaseView
 from redbot.core import commands
+
+from .base import BaseView
 
 
 class BuyBadgeButton(discord.ui.Button):

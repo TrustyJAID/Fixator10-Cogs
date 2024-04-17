@@ -8,6 +8,8 @@ from redbot.vendored.discord.ext import menus
 from tabulate import tabulate
 from .base import BaseView
 
+from .base import BaseView
+
 
 class TopMenu(BaseView):
     def __init__(self, source: menus.PageSource, timeout: int = 180):
@@ -121,8 +123,7 @@ class TopPager(menus.ListPageSource):
         if left_over:
             pages += 1
         self.select_options = [
-            discord.SelectOption(label=f"Page {num+1}", value=str(num))
-            for num in range(0, pages)
+            discord.SelectOption(label=f"Page {num+1}", value=str(num)) for num in range(0, pages)
         ]
 
     async def format_page(self, menu: TopMenu, entries):
