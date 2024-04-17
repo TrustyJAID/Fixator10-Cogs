@@ -1,6 +1,6 @@
-import discord
 from typing import Any, List, Optional
 
+import discord
 from redbot.core import commands
 from redbot.vendored.discord.ext import menus
 
@@ -85,9 +85,7 @@ class FirstItemButton(discord.ui.Button):
 
 class _SelectMenu(discord.ui.Select):
     def __init__(self, options: List[discord.SelectOption]):
-        super().__init__(
-            placeholder="Select a Page", min_values=1, max_values=1, options=options
-        )
+        super().__init__(placeholder="Select a Page", min_values=1, max_values=1, options=options)
 
     async def callback(self, interaction: discord.Interaction):
         index = int(self.values[0])

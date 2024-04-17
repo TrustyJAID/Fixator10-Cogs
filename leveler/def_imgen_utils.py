@@ -1,4 +1,3 @@
-import os
 import operator
 import os
 import random
@@ -9,12 +8,9 @@ from logging import getLogger
 from math import floor, log
 from pathlib import Path
 from typing import Literal, Optional, Union
-from logging import getLogger
-
 
 from redbot.core.data_manager import cog_data_path
 from redbot.core.errors import CogLoadError
-from redbot.core.data_manager import cog_data_path
 
 from .abc import MixinMeta
 

@@ -6,7 +6,6 @@ from redbot.core.utils import chat_formatting as chat
 from redbot.core.utils.predicates import MessagePredicate
 from redbot.vendored.discord.ext import menus
 from tabulate import tabulate
-from .base import BaseView
 
 from .base import BaseView
 

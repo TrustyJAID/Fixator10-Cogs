@@ -1,4 +1,3 @@
-import discord
 from asyncio import TimeoutError as AsyncTimeoutError
 
 import discord
